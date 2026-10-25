@@ -32,91 +32,93 @@ try:
     api_key = st.secrets["GEMINI_API_KEY"]
 except Exception:
     api_key = st.sidebar.text_input("Gemini API Key", type="password")
-   
-    
-
-
 # Lưu lịch sử hội thoại
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+
+def hien_thi(m):
+    for f in m.get("files", []):
+        if f["type"].startswith("image/"):
+            st.image(f["data"])
+        else:
+            st.caption("📎 " + f["name"])
+    if m.get("audio"):
+        st.audio(m["audio"], format="audio/wav")
+    if m["content"]:
+        st.markdown(m["content"])
+
+
+def tao_noi_dung(m):
+    parts = []
+    for f in m.get("files", []):
+        parts.append(types.Part.from_bytes(data=f["data"], mime_type=f["type"]))
+    if m.get("audio"):
+        parts.append(types.Part.from_bytes(data=m["audio"], mime_type="audio/wav"))
+    if m["content"]:
+        parts.append(types.Part(text=m["content"]))
+    elif m["role"] == "user":
+        parts.append(types.Part(text="Hãy xem nội dung đính kèm (ảnh, file hoặc ghi âm) và giải bài toán trong đó."))
+    return types.Content(
+        role="user" if m["role"] == "user" else "model", parts=parts
+    )
+
+
 # Hiển thị lịch sử
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+for m in st.session_state.messages:
+    with st.chat_message(m["role"]):
+        hien_thi(m)
 
-# Nhập câu hỏi
-if prompt := st.chat_input("Nhập bài toán của bạn..."):
+# Khung nhập: gõ chữ, kéo thả ảnh/file, hoặc ghi âm
+prompt = st.chat_input(
+    "Nhập bài toán, kéo thả ảnh/file, hoặc bấm micro để nói...",
+    accept_file="multiple",
+    file_type=["png", "jpg", "jpeg", "webp", "pdf", "txt"],
+    accept_audio=True,
+)
 
+if prompt:
     if not api_key:
-        st.warning("Vui lòng nhập Gemini API Key ở thanh bên trái.")
+        st.warning("Hãy nhập API Key ở thanh bên trái trước.")
         st.stop()
 
-    # Hiển thị câu hỏi
+    files = [
+        {"name": f.name, "type": f.type, "data": f.getvalue()}
+        for f in (prompt.files or [])
+    ]
+    audio = prompt.audio.getvalue() if prompt.audio else None
+    tong = sum(len(f["data"]) for f in files) + (len(audio) if audio else 0)
+    if tong > 15 * 1024 * 1024:
+        st.error("Tệp quá lớn (tối đa khoảng 15 MB mỗi lần gửi).")
+        st.stop()
+
+    tin_nhan = {
+        "role": "user",
+        "content": prompt.text or "",
+        "files": files,
+        "audio": audio,
+    }
+    st.session_state.messages.append(tin_nhan)
     with st.chat_message("user"):
-        st.markdown(prompt)
+        hien_thi(tin_nhan)
 
-    # Chỉ tạo bản sao lịch sử để gửi API.
-    # Không lưu câu hỏi vào lịch sử chính thức cho đến khi xử lý xong.
-    history = st.session_state.messages + [
-        {"role": "user", "content": prompt}
-    ]
-
-    contents = [
-        types.Content(
-            role="user" if message["role"] == "user" else "model",
-            parts=[types.Part(text=message["content"])]
-        )
-        for message in history
-    ]
+    contents = [tao_noi_dung(m) for m in st.session_state.messages]
 
     with st.chat_message("assistant"):
         try:
             client = genai.Client(api_key=api_key)
-
-            with st.spinner("AI đang giải bài toán..."):
+            with st.spinner("AI đang suy nghĩ..."):
                 response = client.models.generate_content(
                     model=MODEL,
                     contents=contents,
                     config=types.GenerateContentConfig(
-                        system_instruction=SYSTEM_PROMPT,
-                        temperature=0.3
-                    )
+                        system_instruction=SYSTEM_PROMPT
+                    ),
                 )
-
             answer = response.text
-
-            if not answer:
-                st.warning(
-                    "AI chưa tạo được câu trả lời. "
-                    "Bạn hãy thử gửi lại đề bài."
-                )
-            else:
-                st.markdown(answer)
-
-                # Chỉ lưu hội thoại khi có câu trả lời
-                st.session_state.messages = history + [
-                    {"role": "assistant", "content": answer}
-                ]
-
+            st.markdown(answer)
+            st.session_state.messages.append(
+                {"role": "assistant", "content": answer}
+            )
         except Exception as e:
-            error_message = str(e)
-
-            if "404" in error_message or "NOT_FOUND" in error_message:
-                st.error(
-                    f"Không tìm thấy model '{MODEL}' hoặc model "
-                    "không khả dụng với API key hiện tại. "
-                    "Hãy kiểm tra danh sách model được hỗ trợ."
-                )
-            elif "API_KEY_INVALID" in error_message or "401" in error_message:
-                st.error(
-                    "API key không hợp lệ. "
-                    "Hãy kiểm tra lại Gemini API Key."
-                )
-            elif "429" in error_message or "RESOURCE_EXHAUSTED" in error_message:
-                st.error(
-                    "API đã đạt giới hạn sử dụng hoặc hạn mức hiện tại. "
-                    "Hãy kiểm tra quota và giới hạn của API key."
-                )
-            else:
-                st.error(f"Có lỗi khi gọi Gemini API: {error_message}")
+            st.error(f"Có lỗi: {e}")
