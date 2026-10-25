@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Classroom – Gia sư Xác suất thống kê bằng AI</title>
+<meta name="description" content="AI Classroom giải bài Xác suất thống kê từng bước, giải thích dễ hiểu bằng tiếng Việt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F5F7FB}
+a{color:#2F5BEA}a:hover{color:#1F3FB0}
+a:focus-visible{outline:3px solid #FFB84D;outline-offset:3px}
+@media (max-width:600px){h1{font-size:36px !important}h2{font-size:28px !important}}
+</style>
+</head>
+<body>
+<div style="font-family:'Be Vietnam Pro',sans-serif;color:#0F1B3D;background:#F5F7FB;line-height:1.6;font-size:17px">
+
+<header style="background:#0F1B3D;color:#F5F7FB;padding:24px 0 96px">
+<div style="max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:72px">
+<nav style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+<div style="display:flex;align-items:center;gap:12px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFB84D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V11"></path><path d="M10 20V5"></path><path d="M16 20v-7"></path><path d="M3 20h18"></path></svg>
+<span style="font-family:'Lora',serif;font-weight:700;font-size:22px">AI Classroom</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:24px;font-size:15px">
+<a href="#tinh-nang" style="color:#F5F7FB;text-decoration:none">Tính năng</a>
+<a href="#cach-hoat-dong" style="color:#F5F7FB;text-decoration:none">Cách hoạt động</a>
+<a href="#cau-hoi" style="color:#F5F7FB;text-decoration:none">Câu hỏi mẫu</a>
+<a href="#luu-y" style="color:#F5F7FB;text-decoration:none">Lưu ý</a>
+</div>
+</nav>
+<div style="display:flex;flex-wrap:wrap;gap:56px;align-items:center">
+<div style="flex:1 1 440px;display:flex;flex-direction:column;gap:24px">
+<span style="font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#FFB84D">Gia sư Xác suất thống kê bằng AI</span>
+<h1 style="margin:0;font-family:'Lora',serif;font-size:52px;line-height:1.15;font-weight:700">Hiểu bài toán, không chỉ chép đáp án.</h1>
+<p style="margin:0;font-size:19px;color:#C9D3F0;max-width:520px">Nhập bất kỳ bài tập Xác suất thống kê nào. AI Classroom giải từng bước, giải thích vì sao dùng công thức đó, bằng tiếng Việt dễ hiểu.</p>
+<div style="display:flex;flex-wrap:wrap;gap:16px">
+<a href="https://stat-ai-tutor-5txwvg9oklmexea6va2upv.streamlit.app/" target="_blank" rel="noopener" style="background:#FFB84D;color:#0F1B3D;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:10px;min-height:44px;box-sizing:border-box">Bắt đầu hỏi</a>
+<a href="#cach-hoat-dong" style="border:1.5px solid #8FA3DA;color:#F5F7FB;font-weight:600;text-decoration:none;padding:14px 28px;border-radius:10px;min-height:44px;box-sizing:border-box">Xem cách hoạt động</a>
+</div>
+</div>
+<div style="flex:1 1 400px;background:#1A2A55;border:1px solid #2C3E75;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:14px;font-size:15px">
+<div style="align-self:flex-end;max-width:90%;background:#2F5BEA;color:#FFFFFF;padding:12px 16px;border-radius:14px 14px 4px 14px">Tung một con xúc xắc 2 lần. Tính xác suất tổng hai mặt bằng 7.</div>
+<div style="max-width:94%;background:#F5F7FB;color:#0F1B3D;padding:14px 16px;border-radius:14px 14px 14px 4px;display:flex;flex-direction:column;gap:8px">
+<div><b>Bước 1.</b> Không gian mẫu có 6 × 6 = 36 kết quả đồng khả năng.</div>
+<div><b>Bước 2.</b> Các cặp có tổng 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1), tức 6 kết quả.</div>
+<div><b>Kết luận.</b> P(tổng = 7) = 6/36 = 1/6.</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+
+<section id="tinh-nang" style="padding:88px 0 40px">
+<div style="max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:680px">
+<h2 style="margin:0;font-family:'Lora',serif;font-size:36px;line-height:1.2">Học theo cách bạn hiểu nhất</h2>
+<p style="margin:0;color:#4A5578">Một gia sư luôn sẵn sàng, kiên nhẫn trả lời mọi câu hỏi về Xác suất thống kê.</p>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:24px">
+<div style="flex:1 1 300px;background:#FFFFFF;border:1px solid #DCE3F3;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2F5BEA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11"></path><path d="M9 12h11"></path><path d="M9 18h11"></path><path d="M4 6h.01"></path><path d="M4 12h.01"></path><path d="M4 18h.01"></path></svg>
+<h3 style="margin:0;font-size:20px">Giải từng bước</h3>
+<p style="margin:0;color:#4A5578">Mỗi bài được chia thành các bước nhỏ: xác định đề bài, chọn công thức, tính toán và kết luận.</p>
+</div>
+<div style="flex:1 1 300px;background:#FFFFFF;border:1px solid #DCE3F3;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2F5BEA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"></path><path d="M4 19V5"></path><path d="M9 8h5"></path></svg>
+<h3 style="margin:0;font-size:20px">Giải thích khái niệm</h3>
+<p style="margin:0;color:#4A5578">Hỏi về phân phối chuẩn, khoảng tin cậy, kiểm định giả thuyết và nhận lời giải thích dễ hiểu kèm ví dụ.</p>
+</div>
+<div style="flex:1 1 300px;background:#FFFFFF;border:1px solid #DCE3F3;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2F5BEA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+<h3 style="margin:0;font-size:20px">Hỏi tiếp thoải mái</h3>
+<p style="margin:0;color:#4A5578">AI nhớ nội dung cuộc trò chuyện, nên bạn có thể hỏi thêm "tại sao bước này lại như vậy?" bất cứ lúc nào.</p>
+</div>
+</div>
+<p style="margin:0;color:#4A5578;font-size:15px">Nhiều tính năng mới đang được phát triển.</p>
+</div>
+</section>
+
+<section id="cach-hoat-dong" style="padding:72px 0">
+<div style="max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:40px">
+<h2 style="margin:0;font-family:'Lora',serif;font-size:36px;line-height:1.2">Cách hoạt động</h2>
+<div style="display:flex;flex-wrap:wrap;gap:32px">
+<div style="flex:1 1 280px;display:flex;flex-direction:column;gap:10px;border-top:3px solid #2F5BEA;padding-top:20px">
+<span style="font-family:'Lora',serif;font-size:34px;font-weight:700;color:#2F5BEA">1</span>
+<h3 style="margin:0;font-size:20px">Nhập bài toán</h3>
+<p style="margin:0;color:#4A5578">Gõ hoặc dán đề bài vào khung chat.</p>
+</div>
+<div style="flex:1 1 280px;display:flex;flex-direction:column;gap:10px;border-top:3px solid #2F5BEA;padding-top:20px">
+<span style="font-family:'Lora',serif;font-size:34px;font-weight:700;color:#2F5BEA">2</span>
+<h3 style="margin:0;font-size:20px">AI phân tích</h3>
+<p style="margin:0;color:#4A5578">AI nhận ra dạng bài và chọn phương pháp phù hợp.</p>
+</div>
+<div style="flex:1 1 280px;display:flex;flex-direction:column;gap:10px;border-top:3px solid #2F5BEA;padding-top:20px">
+<span style="font-family:'Lora',serif;font-size:34px;font-weight:700;color:#2F5BEA">3</span>
+<h3 style="margin:0;font-size:20px">Nhận lời giải</h3>
+<p style="margin:0;color:#4A5578">Xem lời giải từng bước và hỏi tiếp nếu chưa rõ.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="cau-hoi" style="padding:24px 0 72px">
+<div style="max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:28px">
+<h2 style="margin:0;font-family:'Lora',serif;font-size:36px;line-height:1.2">Câu hỏi mẫu</h2>
+<div style="display:flex;flex-wrap:wrap;gap:14px">
+<div style="background:#FFFFFF;border:1px solid #DCE3F3;border-radius:999px;padding:12px 22px">Tung 2 xúc xắc, xác suất tổng bằng 7 là bao nhiêu?</div>
+<div style="background:#FFFFFF;border:1px solid #DCE3F3;border-radius:999px;padding:12px 22px">Phương sai mẫu khác phương sai tổng thể thế nào?</div>
+<div style="background:#FFFFFF;border:1px solid #DCE3F3;border-radius:999px;padding:12px 22px">Khi nào dùng kiểm định t thay vì kiểm định z?</div>
+<div style="background:#FFFFFF;border:1px solid #DCE3F3;border-radius:999px;padding:12px 22px">X ~ N(100, 15²). Tính P(X &gt; 120).</div>
+</div>
+</div>
+</section>
+
+<section id="luu-y" style="padding:0 0 72px">
+<div style="max-width:1120px;margin:0 auto;padding:0 24px">
+<div style="background:#FFF4DE;border:1px solid #F0D49A;border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:8px">
+<h3 style="margin:0;font-size:20px">Lưu ý khi sử dụng</h3>
+<p style="margin:0;color:#4A3B12">AI có thể mắc sai sót. Hãy đối chiếu kết quả với giáo trình hoặc giảng viên trước khi nộp bài, và dùng AI Classroom để hiểu cách làm chứ không chỉ lấy đáp án.</p>
+</div>
+</div>
+</section>
+
+<section style="background:#0F1B3D;color:#F5F7FB;padding:72px 0">
+<div style="max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+<h2 style="margin:0;font-family:'Lora',serif;font-size:32px;line-height:1.25;max-width:600px">Sẵn sàng giải bài toán đầu tiên của bạn?</h2>
+<a href="https://stat-ai-tutor-5txwvg9oklmexea6va2upv.streamlit.app/" target="_blank" rel="noopener" style="background:#FFB84D;color:#0F1B3D;font-weight:700;text-decoration:none;padding:14px 28px;border-radius:10px;min-height:44px;box-sizing:border-box">Bắt đầu hỏi</a>
+</div>
+</section>
+
+<footer style="padding:28px 24px;text-align:center;color:#4A5578;font-size:14px">© 2026 AI Classroom</footer>
+</div>
+</body>
+</html>
