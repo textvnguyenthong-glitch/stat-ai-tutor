@@ -14,6 +14,8 @@ st.page_link("tinh_nang/ipad_live.py", label="Bảng vẽ và giọng nói", ico
 st.caption("Viết tay bài giải rồi hỏi AI bằng giọng nói hoặc chữ.")
 
 st.markdown("### Luyện tập")
+st.page_link("tinh_nang/tro_choi.py", label="Trò chơi xác suất", icon="🎲")
+st.caption("Đoán xác suất, Monty Hall và phòng thí nghiệm may rủi.")
 st.page_link("tinh_nang/1_Cham_bai_barem.py", label="Chấm bài theo barem", icon="📝")
 st.caption("AI chấm điểm từng ý và chỉ ra lỗi sai.")
 st.page_link("tinh_nang/2_Sinh_bai_tu_luan.py", label="Sinh bài tự luận", icon="✍️")
